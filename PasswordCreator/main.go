@@ -1,8 +1,10 @@
-package PasswordCreator
+package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -38,5 +40,36 @@ func main() {
 		include_numbers = "true"
 		include_special = "true"
 	}
+
+	// Create a string of all usable characters
+	usable := alphabet_lower + alphabet_upper
+
+	if include_numbers != "false" {
+		usable += numbers
+	}
+	if include_special != "false" {
+		usable += special_chars
+	}
+
+	// Convert the usable string to an array
+	var sub_usable []string
+	for _, r := range usable {
+		sub_usable = append(sub_usable, string(r))
+	}
+
+	password_length_int, err := strconv.Atoi(password_length)
+	if err != nil {
+		panic(err)
+	}
+
+	var password string
+
+	// Loop through the password length
+	for i := 0; i < password_length_int; i++ {
+		password += sub_usable[rand.Intn(len(sub_usable))]
+	}
+
+	// Output the password
+	fmt.Println("The finished password is: " + password)
 
 }

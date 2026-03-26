@@ -1,4 +1,4 @@
-package PasswordCreator
+package main
 
 import "testing"
 
