@@ -30,7 +30,9 @@ jobs:
           echo "Gefundene Go-Module:"
           echo "${{ steps.find_modules.outputs.modules }}"
 
-          for dir in ${{ steps.find_modules.outputs.modules }}; do
+          modules=$(echo "${{ steps.find_modules.outputs.modules }}" | tr '\n' ' ')
+          
+          for dir in $modules; do
             echo "--------------------------------------"
             echo "Baue & teste Modul: $dir"
             echo "--------------------------------------"
